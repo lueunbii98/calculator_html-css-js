@@ -16,7 +16,7 @@ keys.addEventListener('click', e => { //Attaches an event handler to the element
         if (!action){ //Number keys, doesn't have action attribute
             if (displayedNum === '0' || previousKeyType === 'operator'){
                 display.textContent = keyContent // replacing the text on the display
-                //calculator.dataset.previousKeyType = 'number'
+                calculator.dataset.previousKeyType = 'number'//check, to append in the second number
             } else {
                 display.textContent = displayedNum + keyContent
             }
@@ -43,7 +43,27 @@ keys.addEventListener('click', e => { //Attaches an event handler to the element
             const secondValue = displayedNum
             
             //displaying the result
-            //display.textContent =  calculate(firstValue, operator, secondValue)
+            display.textContent =  calculate(firstValue, operator, secondValue)
         }
     }
 })
+
+//Function to calculate the result
+const calculate = (n1, operator, n2) => {
+    let result = ''
+
+    if (operator === 'add'){
+        result = parseFloat(n1) + parseFloat(n2)
+    }
+    else if (operator === 'subtract'){
+        result = parseFloat(n1) - parseFloat(n2)
+    }
+    else if (operator === 'multiply'){
+        result = parseFloat(n1) * parseFloat(n2)
+    }
+    else if (operator === 'divide'){
+        result = parseFloat(n1) / parseFloat(n2)
+    }
+
+    return result
+}
