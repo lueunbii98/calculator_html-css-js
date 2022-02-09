@@ -27,7 +27,21 @@ keys.addEventListener('click', e => { //Attaches an event handler to the element
                 key.style.animation = '' // reseting the animation by setting it as nothin in every click
                 setTimeout(() => key.style.animation = 'feedback 100ms 1 linear', 5) // then loading the animation again
             })
+
+            // Evaluating if the calculation is needed 
+            
+            const firstValue = calculator.dataset.firstValue
+            const operator = calculator.dataset.operator
+            const secondValue = displayedNum
+
+            // There is always a second value if there is a first and an operator
+
+            if (firstValue && operator && previousKeyType !== 'operator'){
+                display.textContent = calculate(firstValue, operator, secondValue)
+            }
+
             key.classList.add('is-depressed')
+
             //Custom attribute
             calculator.dataset.previousKeyType = 'operator'
 
