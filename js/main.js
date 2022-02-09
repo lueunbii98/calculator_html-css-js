@@ -37,16 +37,20 @@ keys.addEventListener('click', e => { //Attaches an event handler to the element
             // There is always a second value if there is a first and an operator
 
             if (firstValue && operator && previousKeyType !== 'operator'){
-                display.textContent = calculate(firstValue, operator, secondValue)
+                const calcValue = calculate(firstValue, operator, secondValue)
+                display.textContent = calcValue
+
+                // Updating firstValue to the new calculated value
+                calculator.dataset.firstValue = calcValue
+            }
+            else {
+                calculator.dataset.firstValue = displayedNum
             }
 
             key.classList.add('is-depressed')
 
             //Custom attribute
             calculator.dataset.previousKeyType = 'operator'
-
-            //saving the 1st number and the operator
-            calculator.dataset.firstValue = displayedNum
             calculator.dataset.operator = action
         }
         if (action === 'decimal'){
