@@ -16,13 +16,17 @@ keys.addEventListener('click', e => { //Attaches an event handler to the element
         if (!action){ //Number keys, doesn't have action attribute
             if (displayedNum === '0' || previousKeyType === 'operator'){
                 display.textContent = keyContent // replacing the text on the display
-                calculator.dataset.previousKeyType = 'number'//check, to append in the second number
+                calculator.dataset.previousKeyType = 'number'
             } else {
                 display.textContent = displayedNum + keyContent
             }
         }
 
         if (action === 'add' || action ==='subtract' || action === 'multiply' || action === 'divide'){
+            key.addEventListener('click', e => {
+                key.style.animation = '' // reseting the animation by setting it as nothin in every click
+                setTimeout(() => key.style.animation = 'feedback 100ms 1 linear', 5) // then loading the animation again
+            })
             key.classList.add('is-depressed')
             //Custom attribute
             calculator.dataset.previousKeyType = 'operator'
@@ -32,10 +36,17 @@ keys.addEventListener('click', e => { //Attaches an event handler to the element
             calculator.dataset.operator = action
         }
         if (action === 'decimal'){
-            display.textContent = displayedNum + '.'
+            if (!displayedNum.includes('.')){ // check if there's alredy a dot
+                display.textContent = displayedNum + '.'
+                calculator.dataset.previousKeyType = 'decimal'
+            }
+            else if (previousKeyType === 'operator'){ //check if the previous key was an operator
+                display.textContent = '0.'
+            }
         }
         if (action === 'clear'){
             console.log('clear key!')
+            calculator.dataset.previousKeyType = 'clear'
         }
         if (action === 'calculate'){
             const firstValue = calculator.dataset.firstValue
@@ -44,6 +55,7 @@ keys.addEventListener('click', e => { //Attaches an event handler to the element
             
             //displaying the result
             display.textContent =  calculate(firstValue, operator, secondValue)
+            calculator.dataset.previousKeyType = 'calculate'
         }
     }
 })
