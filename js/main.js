@@ -67,15 +67,23 @@ keys.addEventListener('click', e => { //Attaches an event handler to the element
             calculator.dataset.previousKeyType = 'clear'
         }
         if (action === 'calculate'){
-            const firstValue = calculator.dataset.firstValue
+            let firstValue = calculator.dataset.firstValue
             const operator = calculator.dataset.operator
-            const secondValue = displayedNum
+            let secondValue = displayedNum
             
-            //check if there is a first value
-            if (firstValue) {
+            if (firstValue) { //check if there is a first value
+                if (previousKeyType === 'calculate'){ //checking if the user is hiting equal again
+                    firstValue = displayedNum
+                    secondValue = calculator.dataset.modValue
+                }
+                
                 //displaying the result
                 display.textContent =  calculate(firstValue, operator, secondValue)
             }
+
+            // saving the second value in case the user hits equal key again
+            calculator.dataset.modValue = secondValue
+
             calculator.dataset.previousKeyType = 'calculate'
         }
     }
