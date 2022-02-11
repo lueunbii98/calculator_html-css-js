@@ -14,7 +14,7 @@ keys.addEventListener('click', e => { //Attaches an event handler to the element
         Array.from(key.parentNode.children).forEach(k => k.classList.remove('is-depressed'))
 
         if (!action){ //Number keys, doesn't have action attribute
-            if (displayedNum === '0' || previousKeyType === 'operator'){
+            if (displayedNum === '0' || previousKeyType === 'operator' || previousKeyType === 'calculate'){
                 display.textContent = keyContent // replacing the text on the display
                 calculator.dataset.previousKeyType = 'number'
             } else {
@@ -54,12 +54,12 @@ keys.addEventListener('click', e => { //Attaches an event handler to the element
             calculator.dataset.operator = action
         }
         if (action === 'decimal'){
-            if (!displayedNum.includes('.')){ // check if there's alredy a dot
+            if (previousKeyType === 'operator' || previousKeyType === 'calculate'){ //check if the previous key was an operator
+                display.textContent = '0.'
+            }
+            else if (!displayedNum.includes('.') ){ // check if there's alredy a dot
                 display.textContent = displayedNum + '.'
                 calculator.dataset.previousKeyType = 'decimal'
-            }
-            else if (previousKeyType === 'operator'){ //check if the previous key was an operator
-                display.textContent = '0.'
             }
         }
         if (action === 'clear'){
