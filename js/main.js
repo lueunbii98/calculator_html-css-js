@@ -36,7 +36,7 @@ keys.addEventListener('click', e => { //Attaches an event handler to the element
 
             // There is always a second value if there is a first and an operator
 
-            if (firstValue && operator && previousKeyType !== 'operator'){
+            if (firstValue && operator && previousKeyType !== 'operator' && previousKeyType !== 'calculate'){
                 const calcValue = calculate(firstValue, operator, secondValue)
                 display.textContent = calcValue
 
