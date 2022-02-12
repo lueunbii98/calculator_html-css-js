@@ -63,7 +63,18 @@ keys.addEventListener('click', e => { //Attaches an event handler to the element
             }
         }
         if (action === 'clear'){
-            console.log('clear key!')
+            // reseting the calculator if the user hits AC
+            if (key.textContent = 'AC'){
+                calculator.dataset.firstValue = ''
+                calculator.dataset.operator = ''
+                calculator.dataset.secondValue = ''
+                calculator.dataset.previousKeyType = ''
+            }
+            else{
+                key.textContent = 'AC'
+            }
+            display.textContent = '0'
+
             calculator.dataset.previousKeyType = 'clear'
         }
         if (action === 'calculate'){
@@ -85,6 +96,12 @@ keys.addEventListener('click', e => { //Attaches an event handler to the element
             calculator.dataset.modValue = secondValue
 
             calculator.dataset.previousKeyType = 'calculate'
+        }
+
+        // Change clear button if necesary
+        if (action !== 'clear'){
+            const clearButton =  calculator.querySelector('[data-action=clear]')
+            clearButton.textContent = 'CE'
         }
     }
 })
